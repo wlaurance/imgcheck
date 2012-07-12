@@ -1,0 +1,6 @@
+{
+  "files":
+    [ {"name":"appicon.png", "height":57, "width":57}
+    ,{"name":"Default.png", "height":480, "width":320}
+    ]
+}
