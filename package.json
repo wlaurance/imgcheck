@@ -12,7 +12,11 @@
   "scripts": {
     "test": "make test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "imageinfo":"1.0.4"
+    , "commander":"1.0.0"
+    , "colors":"*"
+  },
   "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
