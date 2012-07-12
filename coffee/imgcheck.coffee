@@ -2,6 +2,7 @@ fs = require 'fs'
 imageinfo = require 'imageinfo'
 program = require 'commander'
 colors = require 'colors'
+async = require 'async'
 
 checkDir = (str)->
   if str[str.length - 1] isnt '/'
@@ -23,13 +24,12 @@ fs.readFile __dirname + '/../package.json', (error, data)->
     try
       files = (JSON.parse d).files
       errors = 0
-      count = 0
-      for file in files
+      iterator = (file, cb) ->
         uri = program.dir + file.name
         fs.readFile uri, (fe, fdata)->
           console.log ("Missing " + file.name).bold.red if fe?
           errors++ if fe?
-          count++
+          cb() if fe?
           if not fe?
             info = imageinfo fdata
             msg = file.name + '\t'
@@ -45,11 +45,14 @@ fs.readFile __dirname + '/../package.json', (error, data)->
               msg += ' Height:' + file.height + " != " + info.height + ' ✗'.red
               errors++
             console.log msg
-            if count is files.length
-              if errors is 0
-                console.log ('All of your images have the required width and height specified in ' + program.filesjson).green
-              else
-                console.log ('You fail. You have ' + errors + " error(s). Please fix them and try again").red
+            cb()
+
+      async.forEach files, iterator, (error)->
+        throw error if error?
+        if errors is 0
+          console.log ('All of your images have the required width and height specified in ' + program.filesjson).green
+        else
+          console.log ('You fail. You have ' + errors + " error(s). Please fix them and try again").red
     catch e
       throw e
       process.exit()

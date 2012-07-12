@@ -16,6 +16,7 @@
     "imageinfo":"1.0.4"
     , "commander":"1.0.0"
     , "colors":"*"
+    , "async":"0.1.22"
   },
   "devDependencies": {},
   "optionalDependencies": {},
