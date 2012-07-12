@@ -2,7 +2,7 @@
   "author": "Will S. Laurance <w.laurance@gmail.com> (http://wlaurance.com)",
   "name": "imgcheck",
   "description": "files.json file given and imgcheck will check actual image size to the requirements in the files.json file",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/wlaurance/imgcheck",
   "repository": {
     "type": "git",
@@ -13,10 +13,10 @@
     "test": "make test"
   },
   "dependencies": {
-    "imageinfo":"1.0.4"
-    , "commander":"1.0.0"
-    , "colors":"*"
-    , "async":"0.1.22"
+    "imageinfo": "1.0.4",
+    "commander": "1.0.0",
+    "colors": "*",
+    "async": "0.1.22"
   },
   "devDependencies": {},
   "optionalDependencies": {},
