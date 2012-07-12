@@ -9,6 +9,7 @@
     "url": "git://github.com/wlaurance/imgcheck.git"
   },
   "main": "./lib/imgcheck.js",
+  "bin":"./bin/imgcheck",
   "scripts": {
     "test": "make test"
   },
