@@ -22,10 +22,14 @@ fs.readFile __dirname + '/../package.json', (error, data)->
     throw e if e?
     try
       files = (JSON.parse d).files
+      errors = 0
+      count = 0
       for file in files
         uri = program.dir + file.name
         fs.readFile uri, (fe, fdata)->
           console.log ("Missing " + file.name).bold.red if fe?
+          errors++ if fe?
+          count++
           if not fe?
             info = imageinfo fdata
             msg = file.name + '\t'
@@ -33,12 +37,19 @@ fs.readFile __dirname + '/../package.json', (error, data)->
               msg += ' Width:' + info.width + ' ✔'.green
             else
               msg += ' Width:' + file.width + " != " + info.width + ' ✗'.red
+              errors++
             msg += '\n\t\t'
             if info.height is file.height
               msg += ' Height:' + info.height + ' ✔'.green
             else
               msg += ' Height:' + file.height + " != " + info.height + ' ✗'.red
+              errors++
             console.log msg
+            if count is files.length
+              if errors is 0
+                console.log ('All of your images have the required width and height specified in ' + program.filesjson).green
+              else
+                console.log ('You fail. You have ' + errors + " error(s). Please fix them and try again").red
     catch e
       throw e
       process.exit()
